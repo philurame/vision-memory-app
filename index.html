@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Visual Memory Game</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <h1>Visual Memory Game</h1>
+    <div id="parameters">
+      <label>
+        Time to remember (seconds):
+        <input type="number" id="timeInput" min="0.1" value="2">
+      </label>
+      <label>
+        Size of the grid:
+        <input type="number" id="sizeInput" min="2" max="30" value="8">
+      </label>
+      <label>
+        Number of squares to remember:
+        <input type="number" id="numberInput" min="1" value="8">
+      </label>
+      <label>
+        Seed (optional):
+        <input type="text" id="seedInput">
+      </label>
+      <button id="startButton">Start Game</button>
+    </div>
+    <div id="gameArea" style="display: none;">
+      <div id="grid"></div>
+      <button id="confirmButton" style="display: none;">Confirm Selection</button>
+    </div>
+    <div id="result" style="display: none;"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
