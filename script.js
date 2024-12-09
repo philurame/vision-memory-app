@@ -277,11 +277,10 @@ class MemoryGame {
     this.resultDiv.style.display = 'block';
 
     const correct = this.arraysEqual(correctIndices.sort(), userSelections.sort());
-    if (correct) {
-      if (this.soundOn) {
-        var snd = new Audio("extras/correct.wav");
-        snd.play();
-      }
+    if (this.soundOn) {
+      const sound_path = correct ? "extras/correct.wav" : "extras/wrong.wav";
+      var snd = new Audio(sound_path);
+      snd.play();
     }
     
     // Create 'Play Again' button
