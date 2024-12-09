@@ -9,22 +9,22 @@
     <h1>Visual Memory Game</h1>
     <div id="parameters">
       <label>
-        Time to remember (seconds):<br>
+        Time (seconds):<br>
         <input type="range" id="timeInput" min="0.1" max="9.9" value="1.5" step="0.1" oninput="timeOutput.value = (parseFloat(timeInput.value).toFixed(1))">
         <output name="timeOutput" id="timeOutput">1.5</output>
       </label>
       <label>
         Size of the grid:<br>
-        <input type="range" id="sizeInput" min="2" max="11" value="7" oninput="sizeOutput.value = (sizeInput.value < 10 ? '0' : '') + sizeInput.value">
+        <input type="range" id="sizeInput" min="2" max="10" value="7" oninput="sizeOutput.value = (sizeInput.value < 10 ? '0' : '') + sizeInput.value">
         <output name="sizeOutput" id="sizeOutput">07</output>
       </label>
       <label>
-        Number of squares to remember:<br>
-        <input type="range" id="numberInput" min="2" max="42" value="10" oninput="numberOutput.value = (numberInput.value < 10 ? '0' : '') + numberInput.value">
+        Num of squares:<br>
+        <input type="range" id="numberInput" min="1" max="42" value="10" oninput="numberOutput.value = (numberInput.value < 10 ? '0' : '') + numberInput.value">
         <output name="numberOutput" id="numberOutput">10</output>
       </label>
       <label>
-        Seed (optional):
+        Seed:
         <input type="text" id="seedInput">
       </label>
       <button id="startButton">Start Game</button>
@@ -34,7 +34,7 @@
       <button id="confirmButton" style="display: none;">Confirm</button>
     </div>
     <div id="result" style="display: none;"></div>
-    <div id="message" style="display: none; padding: 10px; background-color: #f44336; color: white;"></div>
+    <div id="message" style="display: none; padding: 10px; background-color: #b86acf; color: black;"></div>
     <script src="script.js"></script>
   </body>
 </html>

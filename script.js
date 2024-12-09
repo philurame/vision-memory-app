@@ -79,7 +79,7 @@ class MemoryGame {
     const soundButton = document.createElement('button');
     soundButton.id = 'soundButton';
     soundButton.textContent = 'Sound: On';
-    soundButton.style.backgroundColor = '#b659d2';
+    soundButton.style.backgroundColor = '#61dafb';
     // Append soundButton to the gameAreaDiv or parametersDiv
     document.body.appendChild(soundButton);
     return soundButton;
@@ -88,7 +88,7 @@ class MemoryGame {
   handleSoundButtonClick = () => {
     this.soundOn = !this.soundOn;
     this.soundButton.textContent = 'Sound: ' + (this.soundOn ? 'On' : 'Off');
-    this.soundButton.style.backgroundColor = this.soundOn ? '#b659d2' : '#e0e0e0';
+    this.soundButton.style.backgroundColor = this.soundOn ? '#61dafb' : '#365d68';
   }
 
   createBackButton() {
@@ -116,7 +116,14 @@ class MemoryGame {
       }
     }
     if (this.n > this.s * this.s) {
-      alert('Number of squares to remember cannot exceed total squares in the grid.');
+      const messageElement = document.getElementById('message');
+      messageElement.textContent = 'Num of squares cannot exceed total squares in the grid';
+      // no shadow:
+      messageElement.style.textShadow = 'none';
+      messageElement.style.display = 'block';
+      setTimeout(() => {
+        messageElement.style.display = 'none'; 
+      }, 2000);
       return;
     }
     this.startGame();
@@ -224,6 +231,7 @@ class MemoryGame {
 
     if (diff > 0) {
       messageElement.textContent = `Remove ${diff} highlighted squares.`;
+      messageElement.style.textShadow = 'none';
       messageElement.style.display = 'block'; // Show message
       setTimeout(() => {
         messageElement.style.display = 'none'; // Hide message after 2 seconds
@@ -231,6 +239,7 @@ class MemoryGame {
       return;
     } else if (diff < 0) {
       messageElement.textContent = `Highlight ${-diff} more squares.`;
+      messageElement.style.textShadow = 'none';
       messageElement.style.display = 'block'; // Show message
       setTimeout(() => {
         messageElement.style.display = 'none'; // Hide message after 2 seconds
@@ -265,9 +274,10 @@ class MemoryGame {
     this.squares.forEach((square, index) => {
       if (correctIndices.includes(index)) {
         if (userSelections.includes(index)) {
-          square.classList.add('correct');
-        } else {
+          square.classList.remove('selected');
           square.classList.add('active');
+        } else {
+          square.classList.add('missed');
         }
       } else if (userSelections.includes(index)) {
         square.classList.add('incorrect');
