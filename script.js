@@ -174,11 +174,11 @@ class MemoryGame {
           const distance = Math.abs(indexRow - iRow) + Math.abs(indexCol - iCol);
           return distance > 1; // True if index is not adjacent to i
         });
-        if (is_not_close) {
-          // with probability 1 - attr, skip this far square
-          if (this.getRandom() < this.attr) {
+        const p_attr = this.getRandom();
+        const skip_far = is_not_close && (p_attr < this.attr);
+        const skip_close = !is_not_close && (p_attr > this.attr);
+        if (skip_far || skip_close) {
           continue;
-          }
         }
 
         this.selectedIndices.push(index);
