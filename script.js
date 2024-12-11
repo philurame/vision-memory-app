@@ -88,7 +88,7 @@ class MemoryGame {
   handleSoundButtonClick = () => {
     this.soundOn = !this.soundOn;
     this.soundButton.textContent = 'Sound: ' + (this.soundOn ? 'On' : 'Off');
-    this.soundButton.style.backgroundColor = this.soundOn ? '#61dafb' : '#365d68';
+    this.soundButton.style.backgroundColor = this.soundOn ? '#61dafb' : '#4398cd';
   }
 
   createBackButton() {
@@ -106,6 +106,7 @@ class MemoryGame {
     this.t = parseFloat(document.getElementById('timeInput').value) * 1000;
     this.s = parseInt(document.getElementById('sizeInput').value);
     this.n = parseInt(document.getElementById('numberInput').value);
+    this.attr = parseFloat(document.getElementById('attractionInput').value);
     const seedInputValue = document.getElementById('seedInput').value;
     if (seedInputValue === '') {
       this.seed = undefined;
@@ -158,11 +159,28 @@ class MemoryGame {
       }
     }
 
-    // Select random indices
     this.selectedIndices = [];
     while (this.selectedIndices.length < this.n) {
       const index = Math.floor(this.getRandom() * this.squares.length);
+
       if (!this.selectedIndices.includes(index)) {
+        
+        // attraction logic
+        const indexRow = Math.floor(index / this.s);
+        const indexCol = index % this.s;
+        const is_not_close = this.selectedIndices.every(i => {
+          const iRow = Math.floor(i / this.s);
+          const iCol = i % this.s;
+          const distance = Math.abs(indexRow - iRow) + Math.abs(indexCol - iCol);
+          return distance > 1; // True if index is not adjacent to i
+        });
+        if (is_not_close) {
+          // with probability 1 - attr, skip this far square
+          if (this.getRandom() < this.attr) {
+          continue;
+          }
+        }
+
         this.selectedIndices.push(index);
         this.squares[index].classList.add('active');
       }
@@ -391,5 +409,5 @@ class MemoryGame {
     
 // Initialize the game when the DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-new MemoryGame();
+  new MemoryGame();
 });

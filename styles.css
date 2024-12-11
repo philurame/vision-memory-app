@@ -111,7 +111,7 @@ button:hover {
 }
 
 
-
+/* magic: */
 @property --rotate {
   syntax: "<angle>";
   initial-value: 132deg;
@@ -119,7 +119,7 @@ button:hover {
 }
 
 :root {
-  --card-height: 40vh;
+  --card-height: 50vh;
   --card-width: calc(var(--card-height) / 0.6);
 }
 
