@@ -25,8 +25,8 @@
       </label>
       <label>
         Attraction:<br>
-        <input type="range" id="attractionInput" min="0" max="0.9" value="0.5" step="0.1" oninput="attractionOutput.value = (parseFloat(attractionInput.value).toFixed(1))">
-        <output name="attractionInput" id="attractionOutput">0.5</output>
+        <input type="range" id="attractionInput" min="0" max="0.95" value="0.5" step="0.05" oninput="attractionOutput.value = (attractionInput.value * 100).toFixed(0) < 10 ? '0' + (attractionInput.value * 100).toFixed(0) : (attractionInput.value * 100).toFixed(0)">
+        <output name="attractionInput" id="attractionOutput">50</output>
       </label>
       <label>
         Seed:
