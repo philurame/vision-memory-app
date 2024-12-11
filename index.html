@@ -25,7 +25,7 @@
       </label>
       <label>
         Attraction:<br>     
-        <input type="range" id="attractionInput" min="0" max="0.95" value="0.5" step="0.05" oninput="attractionOutput.value=(function(val){return val==0?'&nbsp;&nbsp;0&nbsp;&nbsp;':(val>0?'+':'&nbsp;-')+(Math.abs(val)<10?'0':'')+Math.abs(val);})((attractionInput.value*100).toFixed(0)-50);">   
+        <input type="range" id="attractionInput" min="0.05" max="0.95" value="0.5" step="0.05" oninput="attractionOutput.value=(function(val){return val==0?'&nbsp;&nbsp;0&nbsp;&nbsp;':(val>0?'+':'&nbsp;-')+(Math.abs(val)<10?'0':'')+Math.abs(val);})((attractionInput.value*100).toFixed(0)-50);">   
         <output name="attractionInput" id="attractionOutput">&nbsp;&nbsp;0&nbsp;&nbsp;</output>
       </label>
       <label>
