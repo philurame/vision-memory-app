@@ -52,6 +52,7 @@ class MemoryGame {
     this.selectedIndices = [];
     this.mouseIsDown = false;
     this.hideSquaresTimeout = null;
+    this.trials = 0;
 
     // Initialize sound
     this.soundOn = true;
@@ -246,24 +247,27 @@ class MemoryGame {
 
     const diff = userSelections.length - this.n;
     const messageElement = document.getElementById('message');
-
-    if (diff > 0) {
-      messageElement.textContent = `Remove ${diff} highlighted squares.`;
-      messageElement.style.textShadow = 'none';
-      messageElement.style.display = 'block'; // Show message
-      setTimeout(() => {
-        messageElement.style.display = 'none'; // Hide message after 2 seconds
-      }, 2000);
-      return;
-    } else if (diff < 0) {
-      messageElement.textContent = `Highlight ${-diff} more squares.`;
-      messageElement.style.textShadow = 'none';
-      messageElement.style.display = 'block'; // Show message
-      setTimeout(() => {
-        messageElement.style.display = 'none'; // Hide message after 2 seconds
-      }, 2000);
-      return;
-    }
+    if (this.trials === 0) {
+      if (diff > 0) {
+        messageElement.textContent = `Remove ${diff} highlighted squares.`;
+        messageElement.style.textShadow = 'none';
+        messageElement.style.display = 'block'; // Show message
+        setTimeout(() => {
+          messageElement.style.display = 'none'; // Hide message after 2 seconds
+        }, 2000);
+        this.trials++;
+        return;
+      } else if (diff < 0) {
+        messageElement.textContent = `Highlight ${-diff} more squares.`;
+        messageElement.style.textShadow = 'none';
+        messageElement.style.display = 'block'; // Show message
+        setTimeout(() => {
+          messageElement.style.display = 'none'; // Hide message after 2 seconds
+        }, 2000);
+        this.trials++;
+        return;
+      }
+    } else this.trials = 0;
 
     messageElement.style.display = 'none';
 
