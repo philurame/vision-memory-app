@@ -45,6 +45,7 @@ class MemoryGame {
     this.t = 0;
     this.s = 0;
     this.n = 0;
+    this.attr = 0;
     this.seed = undefined;
     this.randomFunc = undefined;
     this.randomFuncSeed = undefined;
@@ -57,6 +58,13 @@ class MemoryGame {
     // Initialize sound
     this.soundOn = true;
 
+    // Initialize task counter and accuracy tracking
+    this.tasksCompleted = 0;
+    this.gameResults = [];
+
+    // Confirm/play again buttons
+    this.is_confirm = true;
+
     // Get DOM elements
     this.grid = document.getElementById('grid');
     this.parametersDiv = document.getElementById('parameters');
@@ -64,50 +72,32 @@ class MemoryGame {
     this.startButton = document.getElementById('startButton');
     this.confirmButton = document.getElementById('confirmButton');
     this.resultDiv = document.getElementById('result');
-    this.backButton = document.getElementById('backButton') || this.createBackButton();
-
-    // Create sound button
-    this.soundButton = this.createSoundButton();
+    this.backButton = document.getElementById('backButton');
+    this.taskCounterValue = document.getElementById('taskCounterValue');
+    this.accuracyValue = document.getElementById('accuracyValue');
+    this.soundButton = document.getElementById('soundButton');
 
     // Add event listeners
     this.startButton.addEventListener('click', this.handleStartButtonClick);
+    this.confirmButton.addEventListener('click', this.handleConfirmButtonClick);
     this.backButton.addEventListener('click', this.backButtonHandler);
     document.addEventListener('keydown', this.handleBackButtonKey);
     this.soundButton.addEventListener('click', this.handleSoundButtonClick);
-}
-
-  createSoundButton() {
-    const soundButton = document.createElement('button');
-    soundButton.id = 'soundButton';
-    soundButton.textContent = 'Sound: On';
-    soundButton.style.backgroundColor = '#61dafb';
-    // Append soundButton to the gameAreaDiv or parametersDiv
-    document.body.appendChild(soundButton);
-    return soundButton;
   }
 
   handleSoundButtonClick = () => {
     this.soundOn = !this.soundOn;
-    this.soundButton.textContent = 'Sound: ' + (this.soundOn ? 'On' : 'Off');
-    this.soundButton.style.backgroundColor = this.soundOn ? '#61dafb' : '#4398cd';
+    this.soundButton.textContent = this.soundOn ? '🔈' : '🔇';
   }
-
-  createBackButton() {
-    const backButton = document.createElement('button');
-    backButton.id = 'backButton';
-    backButton.textContent = 'Back to Menu';
-    backButton.style.display = 'none'; // Initially hidden
-    this.resultDiv.appendChild(backButton); // Append to resultDiv
-    return backButton;
-  }
-  
 
   handleStartButtonClick = () => {
+
     // Get parameters from inputs
     this.t = parseFloat(document.getElementById('timeInput').value) * 1000;
     this.s = parseInt(document.getElementById('sizeInput').value);
     this.n = parseInt(document.getElementById('numberInput').value);
     this.attr = parseFloat(document.getElementById('attractionInput').value);
+    this.tasksWindow = parseInt(document.getElementById('tasksWindow').value);
     const seedInputValue = document.getElementById('seedInput').value;
     if (seedInputValue === '') {
       this.seed = undefined;
@@ -124,7 +114,7 @@ class MemoryGame {
       messageElement.style.textShadow = 'none';
       messageElement.style.display = 'block';
       setTimeout(() => {
-        messageElement.style.display = 'none'; 
+        messageElement.style.display = 'none';
       }, 2000);
       return;
     }
@@ -165,7 +155,7 @@ class MemoryGame {
       const index = Math.floor(this.getRandom() * this.squares.length);
 
       if (!this.selectedIndices.includes(index)) {
-        
+
         // attraction logic
         const indexRow = Math.floor(index / this.s);
         const indexCol = index % this.s;
@@ -196,10 +186,7 @@ class MemoryGame {
     this.resultDiv.style.display = 'block';
 
     this.confirmButton.style.display = 'inline-block';
-    this.resultDiv.appendChild(this.confirmButton);
-
     this.backButton.style.display = 'inline-block';
-    this.resultDiv.appendChild(this.backButton);
   }
 
   enableUserInteraction = () => {
@@ -215,6 +202,7 @@ class MemoryGame {
       square.addEventListener('mouseover', this.handleSquareMouseOver);
     });
     document.addEventListener('mouseup', this.handleDocumentMouseUp);
+    this.confirmButton.removeEventListener('click', this.handleConfirmButtonClick);
     this.confirmButton.addEventListener('click', this.handleConfirmButtonClick);
     document.addEventListener('keydown', this.handleUserInteractionKeyDown);
   }
@@ -238,49 +226,55 @@ class MemoryGame {
   }
 
   handleConfirmButtonClick = () => {
-    const userSelections = [];
-    this.squares.forEach((square, idx) => {
-      if (square.classList.contains('selected')) {
-        userSelections.push(idx);
-      }
-    });
+    if (this.is_confirm===true) {
+      const userSelections = [];
+      this.squares.forEach((square, idx) => {
+        if (square.classList.contains('selected')) {
+          userSelections.push(idx);
+        }
+      });
 
-    const diff = userSelections.length - this.n;
-    const messageElement = document.getElementById('message');
-    if (this.trials === 0) {
-      if (diff > 0) {
-        messageElement.textContent = `Remove ${diff} highlighted squares.`;
-        messageElement.style.textShadow = 'none';
-        messageElement.style.display = 'block'; // Show message
-        setTimeout(() => {
-          messageElement.style.display = 'none'; // Hide message after 2 seconds
-        }, 2000);
-        this.trials++;
-        return;
-      } else if (diff < 0) {
-        messageElement.textContent = `Highlight ${-diff} more squares.`;
-        messageElement.style.textShadow = 'none';
-        messageElement.style.display = 'block'; // Show message
-        setTimeout(() => {
-          messageElement.style.display = 'none'; // Hide message after 2 seconds
-        }, 2000);
-        this.trials++;
-        return;
-      }
-    } else this.trials = 0;
+      const diff = userSelections.length - this.n;
+      const messageElement = document.getElementById('message');
+      if (this.trials === 0) {
+        if (diff > 0) {
+          messageElement.textContent = `Remove ${diff} highlighted squares.`;
+          messageElement.style.textShadow = 'none';
+          messageElement.style.display = 'block'; // Show message
+          setTimeout(() => {
+            messageElement.style.display = 'none'; // Hide message after 2 seconds
+          }, 2000);
+          this.trials++;
+          return;
+        } else if (diff < 0) {
+          messageElement.textContent = `Highlight ${-diff} more squares.`;
+          messageElement.style.textShadow = 'none';
+          messageElement.style.display = 'block'; // Show message
+          setTimeout(() => {
+            messageElement.style.display = 'none'; // Hide message after 2 seconds
+          }, 2000);
+          this.trials++;
+          return;
+        }
+      } else this.trials = 0;
 
-    messageElement.style.display = 'none';
+      messageElement.style.display = 'none';
 
-    // Remove event listeners
-    document.removeEventListener('mouseup', this.handleDocumentMouseUp);
-    this.squares.forEach(square => {
-      square.removeEventListener('mousedown', this.handleSquareMouseDown);
-      square.removeEventListener('mouseover', this.handleSquareMouseOver);
-    });
-    this.confirmButton.removeEventListener('click', this.handleConfirmButtonClick);
-    document.removeEventListener('keydown', this.handleUserInteractionKeyDown);
+      // Remove event listeners
+      document.removeEventListener('mouseup', this.handleDocumentMouseUp);
+      this.squares.forEach(square => {
+        square.removeEventListener('mousedown', this.handleSquareMouseDown);
+        square.removeEventListener('mouseover', this.handleSquareMouseOver);
+      });
+      document.removeEventListener('keydown', this.handleUserInteractionKeyDown);
 
-    this.showResult(userSelections);
+      this.showResult(userSelections);
+    } else {
+      document.removeEventListener('keydown', this.handleResultKeyDown);
+      this.is_confirm = true;
+      this.confirmButton.textContent = 'Confirm';
+      this.handlePlayAgainClick();
+    }
   }
 
   handleUserInteractionKeyDown = (event) => {
@@ -309,38 +303,50 @@ class MemoryGame {
     this.resultDiv.style.display = 'block';
 
     const correct = this.arraysEqual(correctIndices.sort(), userSelections.sort());
+
+    // Update tasksCompleted and gameResults
+    this.tasksCompleted += 1;
+    this.gameResults.push(correct);
+    if (this.gameResults.length > this.tasksWindow) {
+      this.gameResults.shift(); // Keep last N results
+    }
+
+    this.updateTaskCounter();
+    this.updateAccuracyDisplay();
+
     if (this.soundOn) {
       const sound_path = correct ? "extras/correct.wav" : "extras/wrong.wav";
       var snd = new Audio(sound_path);
       snd.play();
     }
-    
+
     // Create 'Play Again' button
-    const playAgainButton = document.createElement('button');
-    playAgainButton.textContent = 'Play Again';
-    this.resultDiv.appendChild(playAgainButton);
-
-    // Show and position backButton to the right of the playAgainButton
-    this.backButton.style.display = 'inline-block';
-    this.resultDiv.appendChild(this.backButton);
-
-    // Add event listeners
-    playAgainButton.addEventListener('click', this.handlePlayAgainClick);
-    // backButton already has an event listener (backButtonHandler)
-
+    this.is_confirm = false;
+    this.confirmButton.textContent = 'Play Again';
+    
     // Keydown handler
     document.addEventListener('keydown', this.handleResultKeyDown);
+  }
 
-    // Hide confirmButton
-    this.confirmButton.style.display = 'none';
+  updateTaskCounter = () => {
+    this.taskCounterValue.textContent = this.tasksCompleted;
+  }
+
+  updateAccuracyDisplay = () => {
+    const totalGames = this.gameResults.length;
+    const correctGames = this.gameResults.filter(result => result).length;
+    const accuracy = totalGames > 0 ? Math.round((correctGames / totalGames) * 100) : 0;
+    this.accuracyValue.textContent = accuracy + '%';
   }
 
   handlePlayAgainClick = () => {
+    this.is_confirm = true;
+    this.confirmButton.textContent = 'Confirm';
     // Reset resultDiv
     this.resultDiv.style.display = 'none';
-    this.resultDiv.innerHTML = '';
     // Start game again with same parameters
     this.startGame();
+    document.removeEventListener('keydown', this.handleUserInteractionKeyDown);
     document.removeEventListener('keydown', this.handleResultKeyDown);
   }
 
@@ -365,6 +371,11 @@ class MemoryGame {
 
   backButtonHandler = () => {
     clearTimeout(this.hideSquaresTimeout);
+
+    this.tasksCompleted = 0;
+    this.gameResults = [];
+    this.updateTaskCounter();
+    this.updateAccuracyDisplay();
 
     // Remove event listeners
     document.removeEventListener('mouseup', this.handleDocumentMouseUp);
@@ -392,7 +403,6 @@ class MemoryGame {
     // Reset grid and resultDiv
     this.grid.innerHTML = '';
     this.resultDiv.style.display = 'none';
-    this.resultDiv.innerHTML = '';
 
     document.getElementById('message').style.display = 'none';
   }
@@ -410,7 +420,6 @@ class MemoryGame {
   }
 }
 
-    
 // Initialize the game when the DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   new MemoryGame();

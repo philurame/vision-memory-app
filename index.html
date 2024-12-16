@@ -6,39 +6,64 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <h1>Visual Memory Game</h1>
+    <div id="titleAndSound">  
+      <h1>Visual Memory Game</h1>
+      <button id="soundButton">🔈</button>
+    </div>
     <div id="parameters">
       <label>
         Time (seconds):<br>
-        <input type="range" id="timeInput" min="0.1" max="9.9" value="1.5" step="0.1" oninput="timeOutput.value = (parseFloat(timeInput.value).toFixed(1))">
-        <output name="timeOutput" id="timeOutput">1.5</output>
+        <input type="range" id="timeInput" min="0.1" max="9.9" value="1.5" step="0.1" oninput="timeOutput.value = (parseFloat(timeInput.value).toFixed(1))" class="star-slider">
+        <output name="timeOutput" id="timeOutput" style="font-weight: bold; color: #b86acf">1.5</output>
+        <br>
+        <br>
       </label>
       <label>
         Size of the grid:<br>
-        <input type="range" id="sizeInput" min="2" max="10" value="7" oninput="sizeOutput.value = (sizeInput.value < 10 ? '0' : '') + sizeInput.value">
-        <output name="sizeOutput" id="sizeOutput">07</output>
+        <input type="range" id="sizeInput" min="4" max="10" value="7" oninput="sizeOutput.value = (sizeInput.value < 10 ? '0' : '') + sizeInput.value" class="star-slider">
+        <output name="sizeOutput" id="sizeOutput" style="font-weight: bold; color: #b86acf">07</output>
+        <br>
+        <br>
       </label>
       <label>
         Num of squares:<br>
-        <input type="range" id="numberInput" min="1" max="42" value="12" oninput="numberOutput.value = (numberInput.value < 10 ? '0' : '') + numberInput.value">
-        <output name="numberOutput" id="numberOutput">12</output>
+        <input type="range" id="numberInput" min="2" max="42" value="12" oninput="numberOutput.value = (numberInput.value < 10 ? '0' : '') + numberInput.value" class="star-slider">
+        <output name="numberOutput" id="numberOutput" style="font-weight: bold; color: #b86acf">12</output>
+        <br>
+        <br>
       </label>
       <label>
-        Attraction:<br>     
-        <input type="range" id="attractionInput" min="0.05" max="0.95" value="0.6" step="0.05" oninput="attractionOutput.value=(function(val){return val==0?'&nbsp;&nbsp;0&nbsp;&nbsp;':(val>0?'+':'&nbsp;-')+(Math.abs(val)<10?'0':'')+Math.abs(val);})((attractionInput.value*100).toFixed(0)-50);">   
-        <output name="attractionInput" id="attractionOutput">+10</output>
+        Attraction:<br>
+        <input type="range" id="attractionInput" min="0.05" max="0.95" value="0.6" step="0.05" oninput="attractionOutput.value=(function(val){return val==0?'&nbsp;&nbsp;0&nbsp;&nbsp;':(val>0?'+':'&nbsp;-')+(Math.abs(val)<10?'0':'')+Math.abs(val);})((attractionInput.value*100).toFixed(0)-50);" class="star-slider">
+        <output name="attractionInput" id="attractionOutput" style="font-weight: bold; color: #b86acf">+10</output>
+        <br>
+        <br>
       </label>
       <label>
         Seed:
-        <input type="text" id="seedInput">
+        <input type="text" id="seedInput" style="font-weight: bold; color: #b86acf; background-color: #282c34;">
+        <br>
+        <br>
       </label>
       <button id="startButton">Start Game</button>
     </div>
     <div id="gameArea" style="display: none;">
-      <div id="grid"></div>
-      <button id="confirmButton" style="display: none;">Confirm</button>
+      <div id="gameAreaContainer">
+        <div id="grid"></div>
+        <div id="statsDisplay">
+          <div>
+            Tasks Completed:<br> <span id="taskCounterValue", style="font-weight: bold; font-size: 20px; color: #b86acf">0</span>
+            <br>
+            <br>
+            Accuracy@<output id="tasksWindow" value="20">20</output>:<br> <span id="accuracyValue", style="font-weight: bold; font-size: 20px; color: #b86acf">0%</span>
+          </div>
+        </div>
+      </div>
+      <div id="result" style="display: none;">
+        <button id="confirmButton" style="display: none;">Confirm</button>
+        <button id="backButton" style="display: none;">Back to Menu</button>
+      </div>
     </div>
-    <div id="result" style="display: none;"></div>
     <div id="message" style="display: none; padding: 10px; background-color: #b86acf; color: black;"></div>
     <script src="script.js"></script>
   </body>

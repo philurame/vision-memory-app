@@ -1,30 +1,52 @@
+/* constants: */
+:root {
+  --pink: #cc6acf;
+  --pink-light: #d09fd2;
+  --blue: #61dafb;
+  --purple: #4e00c2;
+
+  --card-height: 49vh;
+  --card-width: calc(var(--card-height) / 0.6);
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #282c34;
   color: #d8d8d8;
-  text-shadow: -0.8px -0.8px 0 #693f76, 0.8px -0.8px 0 #693f76, -0.8px 0.8px 0 #693f76, 0.8px 0.8px 0 #693f76;
   text-align: center;
   margin: 0;
   padding: 20px;
 }
 
+#titleAndSound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
 h1 {
   color: #61dafb;
-  /* text-shadow: -2px -2px 0 #693f76, 2px -2px 0 #693f76, -2px 2px 0 #693f76, 2px 2px 0 #693f76; */
+  text-shadow: -0.8px -0.8px 0 #693f76, 0.8px -0.8px 0 #693f76, -0.8px 0.8px 0 #693f76, 0.8px 0.8px 0 #693f76;
+}
+
+#soundButton {
+  margin-bottom: 10px;
+}
+
+#startButton {
+  margin-top: 50px;
+}
+
+#result {
+  margin-top: 200px;
 }
 
 #seedInput {
-  /* short oval */
   border-radius: 50px;
   width: 50px;
   text-align: center;
-  background-color: #d8d8d8;
 }
-
-/* #startButton {
-  color: #693f76;
-  text-shadow: -0.8px -0.8px 0 #000, 0.8px -0.8px 0 #000, -0.8px 0.8px 0 #000, 0.8px 0.8px 0 #000;
-} */
 
 #parameters, #gameArea, #result {
   max-width: 480px;
@@ -44,9 +66,9 @@ input[type="number"] {
   margin-top: 5px;
 }
 
-input[type='range']{ 
-  accent-color: #b86acf; 
-  width: 90%;
+input[type='range'] {
+  accent-color: var(--pink);
+  width: 80%;
   margin-top: 15px;
 }
 
@@ -55,22 +77,53 @@ button {
   font-size: 18px;
   margin-top: 20px;
   cursor: pointer;
-  background-color: #61dafb;
-  border: none;
-  color: #000;
+  background-color: var(--blue);
+  color: #191c29;
   border-radius: 5px;
+  border: 1px solid var(--pink);
 }
 
 button:hover {
   background-color: #4398cd;
 }
 
+#message {
+  margin-top: 20px;
+}
+
+#gameAreaContainer {
+  display: flex;
+  justify-content: center; /* Center the grid horizontally */
+  align-items: center; /* Center the grid vertically */
+  height: 100%;
+  position: relative;
+  padding: 20px; /* Add padding if needed */
+  }
+
+#statsDisplay {
+  background: #191c29;
+  width: 200px;
+  height: 200px;
+  border-radius: 6px;
+  display: flex;
+  flex-shrink: 0; /* Prevent stats display from shrinking */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #d8d8d8;
+  font-size: 18px;
+  margin-left: 45px; /* Space between grid and stats display */
+  margin-bottom: 35%;
+  position: relative; /* Change from absolute to relative */
+  }
+  
 #grid {
   display: grid;
   gap: 5px;
   justify-content: center;
-  margin-top: 20px;
-}
+  margin: 0;
+  margin-left: 215px;
+  }
 
 .grid-square {
   width: 55px;
@@ -82,15 +135,15 @@ button:hover {
 }
 
 .grid-square.active {
-  background-color: #b86acf;
+  background-color: var(--pink);
 }
 
 .grid-square.missed {
-  background-color: #683d75;
+  background-color: #5d305f;
 }
 
 .grid-square.selected {
-  background-color: #83dff8;
+  background-color: var(--blue);
 }
 
 .grid-square.incorrect {
@@ -103,24 +156,18 @@ button:hover {
 
 #result {
   font-size: 24px;
-  margin-top: 40px;
+  margin-top: 5px;
 }
 
 #result button {
   margin: 10px;
 }
 
-
-/* magic: */
+/* Magic styles */
 @property --rotate {
   syntax: "<angle>";
   initial-value: 132deg;
   inherits: false;
-}
-
-:root {
-  --card-height: 50vh;
-  --card-width: calc(var(--card-height) / 0.6);
 }
 
 body {
@@ -140,7 +187,6 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  /* cursor: pointer; */
 }
 
 #parameters::before {
@@ -148,14 +194,12 @@ body {
   width: 104%;
   height: 102%;
   border-radius: 8px;
-  background-image: linear-gradient(
-    var(--rotate)
-    , #5ddcff, #3c67e3 43%, #4e00c2);
-    position: absolute;
-    z-index: -1;
-    top: -1%;
-    left: -2%;
-    animation: spin 2.5s linear infinite;
+  background-image: linear-gradient(var(--rotate), #f75dff, #3c67e3 43%, #4e00c2);
+  position: absolute;
+  z-index: -1;
+  top: -1%;
+  left: -2%;
+  animation: spin 2.5s linear infinite;
 }
 
 #parameters::after {
@@ -170,10 +214,37 @@ body {
   margin: 0 auto;
   transform: scale(0.8);
   filter: blur(calc(var(--card-height) / 6));
-  background-image: linear-gradient(
-    var(--rotate)
-    , #5ddcff, #3c67e3 43%, #4e00c2);
-    opacity: 1;
+  background-image: linear-gradient(var(--rotate), #f75dff, #3c67e3 43%, #4e00c2);
+  opacity: 1;
+  transition: opacity .5s;
+  animation: spin 2.5s linear infinite;
+}
+
+#statsDisplay::before {
+  content: "";
+  width: 104%;
+  height: 102%;
+  border-radius: 8px;
+  background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+  position: absolute;
+  z-index: -1;
+  animation: spin 2.5s linear infinite;
+}
+
+#statsDisplay::after {
+  position: absolute;
+  content: "";
+  top: 10%;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  transform: scale(0.8);
+  filter: blur(20px);
+  background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+  opacity: 1;
   transition: opacity .5s;
   animation: spin 2.5s linear infinite;
 }
@@ -185,4 +256,46 @@ body {
   100% {
     --rotate: 360deg;
   }
+}
+
+
+
+/* Remove default appearance */
+.star-slider {
+  -webkit-appearance: none; /* For Chrome & Safari */
+  appearance: none;
+  width: 100%; /* Full-width */
+  background: transparent; /* Transparent background */
+  margin: 20px 0; /* Optional margin */
+  }
+/* Remove outline on focus */
+.star-slider:focus {
+  outline: none;
+}
+/* Style slider track */
+.star-slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  background: var(--pink);
+  border-radius: 5px;
+  cursor: pointer;  
+}
+/* hover: */
+.star-slider:hover::-webkit-slider-runnable-track {
+  background: var(--pink-light);
+}
+/* Style slider thumb for Chrome, Safari, and Edge */
+.star-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -11px; /* Align thumb vertically */
+  width: 30px;
+  height: 30px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><polygon points="32,4 39,24 60,24 42,38 49,58 32,46 15,58 22,38 4,24 25,24" fill="%23d8d8d8"/></svg>') no-repeat center;
+  background-size: contain;
+  cursor: pointer;
+  }
+/* Adjust thumb alignment for IE */
+.star-slider {
+  margin: 0; /* Reset margin */
 }
