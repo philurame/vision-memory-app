@@ -48,9 +48,14 @@ h1 {
   text-align: center;
 }
 
-#parameters, #gameArea, #result {
+#parameters, #result {
   max-width: 480px;
   margin: 20px auto;
+}
+
+#gameArea {
+  max-width: 480px;
+  margin: 5px auto;
 }
 
 label {

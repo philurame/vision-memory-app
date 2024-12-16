@@ -371,7 +371,7 @@ class MemoryGame {
 
   backButtonHandler = () => {
     clearTimeout(this.hideSquaresTimeout);
-
+    this.is_confirm = true;
     this.tasksCompleted = 0;
     this.gameResults = [];
     this.updateTaskCounter();
