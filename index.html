@@ -27,15 +27,15 @@
       </label>
       <label>
         Num of squares:<br>
-        <input type="range" id="numberInput" min="2" max="42" value="16" oninput="numberOutput.value = (numberInput.value < 10 ? '0' : '') + numberInput.value" class="star-slider">
-        <output name="numberOutput" id="numberOutput" style="font-weight: bold; color: #b86acf">16</output>
+        <input type="range" id="numberInput" min="2" max="42" value="12" oninput="numberOutput.value = (numberInput.value < 10 ? '0' : '') + numberInput.value" class="star-slider">
+        <output name="numberOutput" id="numberOutput" style="font-weight: bold; color: #b86acf">12</output>
         <br>
         <br>
       </label>
       <label>
         Attraction:<br>
-        <input type="range" id="attractionInput" min="0.05" max="0.95" value="0.8" step="0.05" oninput="attractionOutput.value=(function(val){return val==0?'&nbsp;&nbsp;0&nbsp;&nbsp;':(val>0?'+':'&nbsp;-')+(Math.abs(val)<10?'0':'')+Math.abs(val);})((attractionInput.value*100).toFixed(0)-50);" class="star-slider">
-        <output name="attractionInput" id="attractionOutput" style="font-weight: bold; color: #b86acf">+30</output>
+        <input type="range" id="attractionInput" min="0.05" max="0.95" value="0.65" step="0.05" oninput="attractionOutput.value=(function(val){return val==0?'&nbsp;&nbsp;0&nbsp;&nbsp;':(val>0?'+':'&nbsp;-')+(Math.abs(val)<10?'0':'')+Math.abs(val);})((attractionInput.value*100).toFixed(0)-50);" class="star-slider">
+        <output name="attractionInput" id="attractionOutput" style="font-weight: bold; color: #b86acf">+15</output>
         <br>
         <br>
       </label>
