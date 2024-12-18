@@ -242,11 +242,15 @@ button:hover {background-color: #4398cd;}
 .star-slider {margin: 0;}
 
 /* Mobile restyles */
-@media (max-width: 768px) {
-  #statsDisplay {
-    display: none;
-  }
+@media only screen and (max-width: 768px) {
+  #statsDisplay {display: none;}
   #grid {
-    margin-left: 0;
+    margin-left: 0; 
+    width: 100%; 
+    max-width: 400px; 
+  }
+  #gameAreaContainer {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center items horizontally */
   }
 }
