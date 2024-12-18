@@ -2,9 +2,6 @@
 // UTILS
 ///////////////////////////
 
-function isMobile() {
-  return /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
 
 function arraysEqual(a1, a2) {
   return JSON.stringify(a1) === JSON.stringify(a2);
@@ -82,7 +79,6 @@ class MemoryGame {
     this.tasksCompleted = 0;
     this.correctSelections = 0;
     this.isConfirmPhase = true;
-    this.isMobile = isMobile();
   }
   
   cacheDOMElements() {
@@ -93,7 +89,6 @@ class MemoryGame {
     this.confirmButton = document.getElementById('confirmButton');
     this.resultDiv = document.getElementById('result');
     this.backButton = document.getElementById('backButton');
-    this.statsDisplay = document.getElementById('statsDisplay');
     this.taskCounterValue = document.getElementById('taskCounterValue');
     this.accuracyValue = document.getElementById('accuracyValue');
     this.soundButton = document.getElementById('soundButton');
@@ -161,10 +156,6 @@ class MemoryGame {
   showGameArea() {
     this.parametersDiv.style.display = 'none';
     this.gameAreaDiv.style.display = 'block';
-    if (this.isMobile) {
-      this.statsDisplay.style.display = 'none';
-      this.grid.style.position = 'absolute';
-    }
   }
   
   initializeGrid() {
