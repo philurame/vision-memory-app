@@ -151,7 +151,6 @@ button:hover {background-color: #4398cd;}
   z-index: -1;
   height: 100%;
   width: 100%;
-  /* margin: 0 auto; */
   transform: scale(0.8);
   filter: blur(60px);
   background-image: linear-gradient(var(--rotate), #f75dff, #3c67e3 43%, #4e00c2);
@@ -245,12 +244,17 @@ button:hover {background-color: #4398cd;}
 @media only screen and (max-width: 768px) {
   #statsDisplay {display: none;}
   #grid {
-    margin-left: 0; 
+    flex: 1;
+    margin-left: 0;
+    margin: 0 auto; 
     width: 100%; 
-    max-width: 400px; 
+    max-width: 100%;
+    justify-content: center;
   }
   #gameAreaContainer {
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center items horizontally */
-  }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  } 
 }
