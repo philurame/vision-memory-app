@@ -13,29 +13,29 @@
     <div id="parameters">
       <label>
         Time (seconds):<br>
-        <input type="range" id="timeInput" min="0.1" max="9.9" value="1.5" step="0.1" oninput="timeOutput.value = (parseFloat(timeInput.value).toFixed(1))" class="star-slider">
-        <output name="timeOutput" id="timeOutput" style="font-weight: bold; color: #b86acf">1.5</output>
+        <input type="range" id="timeInput" min="0.1" max="9.9" value="1.7" step="0.1" oninput="timeOutput.value = (parseFloat(timeInput.value).toFixed(1))" class="star-slider">
+        <output name="timeOutput" id="timeOutput" style="font-weight: bold; color: #b86acf">1.7</output>
         <br>
         <br>
       </label>
       <label>
         Size of the grid:<br>
-        <input type="range" id="sizeInput" min="4" max="10" value="7" oninput="sizeOutput.value = (sizeInput.value < 10 ? '0' : '') + sizeInput.value" class="star-slider">
-        <output name="sizeOutput" id="sizeOutput" style="font-weight: bold; color: #b86acf">07</output>
+        <input type="range" id="sizeInput" min="4" max="10" value="8" oninput="sizeOutput.value = (sizeInput.value < 10 ? '0' : '') + sizeInput.value" class="star-slider">
+        <output name="sizeOutput" id="sizeOutput" style="font-weight: bold; color: #b86acf">08</output>
         <br>
         <br>
       </label>
       <label>
         Num of squares:<br>
-        <input type="range" id="numberInput" min="2" max="42" value="12" oninput="numberOutput.value = (numberInput.value < 10 ? '0' : '') + numberInput.value" class="star-slider">
-        <output name="numberOutput" id="numberOutput" style="font-weight: bold; color: #b86acf">12</output>
+        <input type="range" id="numberInput" min="2" max="42" value="16" oninput="numberOutput.value = (numberInput.value < 10 ? '0' : '') + numberInput.value" class="star-slider">
+        <output name="numberOutput" id="numberOutput" style="font-weight: bold; color: #b86acf">16</output>
         <br>
         <br>
       </label>
       <label>
         Attraction:<br>
-        <input type="range" id="attractionInput" min="0.05" max="0.95" value="0.6" step="0.05" oninput="attractionOutput.value=(function(val){return val==0?'&nbsp;&nbsp;0&nbsp;&nbsp;':(val>0?'+':'&nbsp;-')+(Math.abs(val)<10?'0':'')+Math.abs(val);})((attractionInput.value*100).toFixed(0)-50);" class="star-slider">
-        <output name="attractionInput" id="attractionOutput" style="font-weight: bold; color: #b86acf">+10</output>
+        <input type="range" id="attractionInput" min="0.05" max="0.95" value="0.8" step="0.05" oninput="attractionOutput.value=(function(val){return val==0?'&nbsp;&nbsp;0&nbsp;&nbsp;':(val>0?'+':'&nbsp;-')+(Math.abs(val)<10?'0':'')+Math.abs(val);})((attractionInput.value*100).toFixed(0)-50);" class="star-slider">
+        <output name="attractionInput" id="attractionOutput" style="font-weight: bold; color: #b86acf">+30</output>
         <br>
         <br>
       </label>
