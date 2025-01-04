@@ -25,7 +25,8 @@ body {
   gap: 20px;
 }
 
-#soundButton {margin-bottom: 10px;}
+#soundButton {margin-top: 10px;}
+#startButton {margin-top: 20px;}
 
 h1 {
   color: #61dafb;
@@ -36,10 +37,6 @@ label {
   display: block;
   margin: 10px 0;
   font-size: 18px;
-}
-
-#startButton {
-  margin-top: 50px;
 }
 
 #seedInput {
@@ -62,7 +59,6 @@ input[type='range'] {
 button {
   padding: 10px 20px;
   font-size: 18px;
-  margin-top: 20px;
   cursor: pointer;
   background-color: var(--blue);
   color: #191c29;
@@ -122,11 +118,12 @@ button:hover {background-color: #4398cd;}
 
 #parameters {
   background: #191c29;
-  width: 49vh;
-  height: 47vh;
+  position: absolute;
+  left: 35%;
+  width: 30%;
+  height: 60%;
   margin: 20px auto;
   padding: 20px;
-  position: relative;
   border-radius: 6px;
   text-align: center;
 }
@@ -217,7 +214,7 @@ button:hover {background-color: #4398cd;}
   appearance: none;
   width: 100%;
   background: transparent;
-  margin: 20px 0;
+  margin: auto;
   }
 .star-slider:focus {outline: none;}
 .star-slider::-webkit-slider-runnable-track {
